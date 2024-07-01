@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Sinh Nhật</title>
+    <style>body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+    }
+    
+    .container {
+        text-align: center;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        max-width: 90%;
+    }
+    
+    h1 {
+        color: #ff6f61;
+    }
+    
+    button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #ff6f61;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    
+    button:hover {
+        background-color: #ff3b2f;
+    }
+    
+    .hidden {
+        display: none;
+    }
+    
+    #surprise {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #2d2d2d;
+    }
+    
+    #balloons, #fireworks {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+    }
+    
+    .balloon {
+        position: absolute;
+        bottom: -100px;
+        width: 50px;
+        height: 80px;
+        background-color: #ff6f61;
+        border-radius: 50px 50px 0 0;
+        animation: float 4s ease-in-out infinite;
+    }
+    
+    .balloon::before {
+        content: '';
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        width: 2px;
+        height: 20px;
+        background-color: #ff6f61;
+    }
+    
+    @keyframes float {
+        0% {
+            transform: translateY(0) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-300px) rotate(20deg);
+        }
+        100% {
+            transform: translateY(0) rotate(0deg);
+        }
+    }
+    
+    .firework {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background-color: white;
+        border-radius: 50%;
+        animation: firework 1s linear infinite;
+    }
+    
+    @keyframes firework {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        100% {
+            opacity: 0;
+            transform: scale(5);
+        }
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 24px;
+        }
+    
+        button {
+            font-size: 14px;
+            padding: 8px 16px;
+        }
+    
+        #surprise {
+            font-size: 16px;
+        }
+    
+        .balloon {
+            width: 40px;
+            height: 60px;
+        }
+    
+        .balloon::before {
+            height: 15px;
+        }
+    }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chúc Mừng Sinh Nhật!</h1>
+        <p>Chúc bạn có một ngày sinh nhật thật vui vẻ và hạnh phúc!</p>
+        <button id="surpriseButton">Nhấn vào đây để nhận bất ngờ!</button>
+        <div id="surprise" class="hidden">
+            <p>🎉 Bất ngờ! 🎉</p>
+            <p>Chúc mừng sinh nhật! Bạn là người đặc biệt!</p>
+            <div id="balloons"></div>
+            <div id="fireworks"></div>
+        </div>
+    </div>
+    <audio id="birthdaySong" src="sinh nhat.mp3"></audio>
+    <script>document.addEventListener('DOMContentLoaded', (event) => {
+        const surpriseButton = document.getElementById('surpriseButton');
+        const surprise = document.getElementById('surprise');
+        const birthdaySong = document.getElementById('birthdaySong');
+        const balloonsContainer = document.getElementById('balloons');
+        const fireworksContainer = document.getElementById('fireworks');
+    
+        surpriseButton.addEventListener('click', () => {
+            surprise.classList.toggle('hidden');
+            birthdaySong.play();
+            generateBalloons(20);
+            generateFireworks(10);
+        });
+    
+        function generateBalloons(count) {
+            for (let i = 0; i < count; i++) {
+                const balloon = document.createElement('div');
+                balloon.classList.add('balloon');
+                balloon.style.left = `${Math.random() * 100}%`;
+                balloon.style.backgroundColor = getRandomColor();
+                balloon.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                balloonsContainer.appendChild(balloon);
+            }
+        }
+    
+        function generateFireworks(count) {
+            for (let i = 0; i < count; i++) {
+                const firework = document.createElement('div');
+                firework.classList.add('firework');
+                firework.style.left = `${Math.random() * 100}%`;
+                firework.style.top = `${Math.random() * 100}%`;
+                firework.style.animationDelay = `${Math.random() * 2}s`;
+                fireworksContainer.appendChild(firework);
+            }
+        }
+    
+        function getRandomColor() {
+            const colors = ['#ff6f61', '#ffad61', '#61ff8a', '#619fff', '#ff61e8'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    });
+    
+    </script>
+</body>
+</html>
